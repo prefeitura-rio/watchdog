@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watchdog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: watchdog
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: watchdog
+    spec:
+      containers:
+        - name: watchdog
+          image: gcr.io/PROJECT_ID/IMAGE_NAME:TAG
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: watchdog-secrets
+          volumeMounts:
+            - name: prefect-auth-toml
+              mountPath: /root/.prefect/
+              readOnly: true
+      volumes:
+        - name: prefect-auth-toml
+          secret:
+            secretName: watchdog-prefect-auth-toml
+      restartPolicy: Always
