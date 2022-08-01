@@ -1,12 +1,29 @@
 # -*- coding: utf-8 -*-
 from typing import List
 
+from loguru import logger
 
 ###
 #
 # Text utilities
 #
 ###
+
+
+def log(message: str, level: str = "info") -> None:
+    """
+    Logs a message to stdout.
+    """
+    LOG_FUNCTIONS = {
+        "info": logger.info,
+        "debug": logger.debug,
+        "warning": logger.warning,
+        "error": logger.error,
+        "critical": logger.critical,
+    }
+    LOG_FUNCTIONS[level](message)
+
+
 def smart_split(
     text: str,
     max_length: int,

@@ -13,6 +13,8 @@ python = "^3.9"
 prefect = "0.15.9"
 requests = ">=2.20,<2.27"
 python-telegram-bot = "^13.13"
+APScheduler = "3.6.3"
+loguru = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
