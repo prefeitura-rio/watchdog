@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from os import getenv
+from time import sleep
 import warnings
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     scheduler.start()
     try:
         while True:
-            pass
+            sleep(5)
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
         log("Scheduler stopped, reason=KeyboardInterrupt", "warning")
