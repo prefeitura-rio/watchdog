@@ -26,12 +26,4 @@ spec:
           envFrom:
             - secretRef:
                 name: watchdog-secrets
-          volumeMounts:
-            - name: prefect-auth-toml
-              mountPath: /root/.prefect/
-              readOnly: true
-      volumes:
-        - name: prefect-auth-toml
-          secret:
-            secretName: watchdog-prefect-auth-toml
       restartPolicy: Always
