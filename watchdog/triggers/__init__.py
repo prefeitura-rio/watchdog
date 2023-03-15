@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .prefect_agents import PrefectAgents  # noqa: F401
+from .late_runs import LateRunsTrigger  # noqa: F401
