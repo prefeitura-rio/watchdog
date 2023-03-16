@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa: E501
+import json
+import traceback
 from typing import Any, Dict, Tuple
 
 import pandas as pd
@@ -97,8 +99,12 @@ class LateRunsTrigger(Trigger):
             df_grouped = df.groupby("flow_name").count()["id"].reset_index()
             df_grouped["count"] = df_grouped["id"]
             df_grouped.drop(columns=["id"], inplace=True)
-            return trigger, {"records": df_grouped.to_json(orient="records")}
+            df_grouped.sort_values(by="count", ascending=False, inplace=True)
+            return trigger, {
+                "records": json.loads(df_grouped.to_json(orient="records"))
+            }
         except:  # noqa: E722
+            print(traceback.format_exc())
             return True, {"error": True}
 
     @classmethod
@@ -108,13 +114,14 @@ class LateRunsTrigger(Trigger):
         """
         message = ""
         if "error" in info:
-            message = "🚨 Falha ao consultar runs atrasadas! 🚨"
-        if "records" in info and len(info["records"]):
-            message = "🚨 Alerta de runs atrasadas 🚨\n\n"
-            for record in info["records"]:
-                message += f"- {record['flow_name']:<30}: {record['count']}\n"
-            message = message.replace(">", "\\>")
-            message = message.replace("<", "\\<")
-            message = message.replace("-", "\\-")
-            message = message.replace("=", "\\=")
+            message = "🚨 Falha ao consultar runs atrasadas 🚨"
+        try:
+            if "records" in info and len(info["records"]):
+                message = "🚨 Alerta de runs atrasadas 🚨\n\n```"
+                for record in info["records"]:
+                    message += f"{record['flow_name'][:40]:<40}: {record['count']}\n"
+                message += "```"
+        except:  # noqa: E722
+            print(traceback.format_exc())
+            message = "🚨 Falha ao formar mensagem de runs atrasadas 🚨"
         return message

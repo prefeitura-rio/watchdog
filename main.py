@@ -7,7 +7,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from watchdog.core import Executor
 from watchdog.core.settings import settings
 from watchdog.handlers import MessageDiscord
-from watchdog.handlers import MessageTelegram
+
+# from watchdog.handlers import MessageTelegram
 from watchdog.triggers import LateRunsTrigger
 from watchdog.utils import log
 
@@ -20,7 +21,7 @@ trigger_lateruns = LateRunsTrigger(
 )
 handlers_lateruns = [
     MessageDiscord(webhook_url=settings.DISCORD_WEBHOOK_URL),
-    MessageTelegram(token=settings.TELEGRAM_TOKEN, chat_id=settings.TELEGRAM_CHAT_ID),
+    # MessageTelegram(token=settings.TELEGRAM_TOKEN, chat_id=settings.TELEGRAM_CHAT_ID),
 ]
 
 executor = Executor(
