@@ -56,12 +56,17 @@ def to_human_readable_time(seconds: float) -> str:
     """
     Converts a number of seconds to a human readable time.
     """
-    seconds: int = round(seconds)
-    if seconds < 60:
-        return f"{seconds} seconds"
-    elif seconds < 60 * 60:
-        return f"{seconds // 60} minutes"
-    elif seconds < 60 * 60 * 24:
-        return f"{seconds // 3600} hours"
+    total_seconds: int = round(seconds)
+    days = total_seconds // 86400
+    hours = (total_seconds % 86400) // 3600
+    minutes = (total_seconds % 3600) // 60
+    seconds = total_seconds % 60
+    if days:
+        message = f"{days}d {hours}h {minutes}m {seconds}s"
+    elif hours:
+        message = f"{hours}h {minutes}m {seconds}s"
+    elif minutes:
+        message = f"{minutes}m {seconds}s"
     else:
-        return f"{seconds // 86400} days"
+        message = f"{seconds}s"
+    return message

@@ -14,6 +14,6 @@ class MessageDiscord(Handler):
 
     def handle(self, info: Dict[str, Any], trigger_class: Trigger = None) -> None:
         raw_message = trigger_class.to_message(info)
-        messages = smart_split(raw_message, 4096)
+        messages = smart_split(text=raw_message, max_length=2000, separator="\n")
         for message in messages:
             requests.post(self._webhook_url, data={"content": message})
