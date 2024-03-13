@@ -21,6 +21,7 @@ class MessageTelegram(Handler):
             .replace("`", r"\`")
             .replace("(", r"\(")
             .replace("-", r"\-")
+            .replace(".", r"\.")
         )
 
     def handle(self, info: Dict[str, Any], trigger_class: Trigger = None) -> None:
