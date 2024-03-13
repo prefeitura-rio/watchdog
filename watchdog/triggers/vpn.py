@@ -6,6 +6,7 @@ import traceback
 from typing import Any, Dict, List, Tuple
 
 from watchdog.triggers.base import Trigger
+from watchdog.utils import log
 
 
 class VpnTrigger(Trigger):
@@ -18,14 +19,16 @@ class VpnTrigger(Trigger):
         """
         self._ips_ports = ips_ports
 
-    def _check_ip_port(self, ip: str, port: int) -> bool:
+    def _check_ip_port(self, ip: str, port: int, name: str) -> bool:
         """
         Checks whether a given IP and port is reachable.
         """
         try:
             with socket.create_connection((ip, port), timeout=5):
+                log(f"VPN connection to {name} ({ip}:{port}) is OK")
                 return True
         except:
+            log(f"VPN connection to {name} ({ip}:{port}) has failed", "error")
             return False
 
     def trigger(self) -> Tuple[bool, Dict[str, Any]]:
