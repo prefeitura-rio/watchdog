@@ -62,7 +62,7 @@ class VpnTrigger(Trigger):
         try:
             message = "🚨 Alerta de falha de conexão 🚨\n\n"
             for ip, port, name in info["failed"]:
-                message += f"❌ {name} ({ip}:{port})\n"
+                message += f"❌ {name} - {ip}:{port}\n"
         except:  # noqa: E722
             print(traceback.format_exc())
             message = "🚨 Falha ao formar mensagem de falha de conexão 🚨"

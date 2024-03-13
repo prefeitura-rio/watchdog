@@ -13,8 +13,18 @@ class MessageTelegram(Handler):
         self._token = token
         self._chat_id = chat_id
 
+    def _escape_markdown(self, text: str) -> str:
+        return (
+            text.replace("_", r"\_")
+            .replace("*", r"\*")
+            .replace("[", r"\[")
+            .replace("`", r"\`")
+            .replace("(", r"\(")
+            .replace("-", r"\-")
+        )
+
     def handle(self, info: Dict[str, Any], trigger_class: Trigger = None) -> None:
-        raw_message = trigger_class.to_message(info)
+        raw_message = self._escape_markdown(trigger_class.to_message(info))
         messages = smart_split(raw_message, 4096)
         bot = telegram.Bot(token=self._token)
         for message in messages:
