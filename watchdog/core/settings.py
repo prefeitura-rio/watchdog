@@ -28,7 +28,7 @@ class Settings:
 
     # VPN settings
     VPN_IPS_PORTS = [
-        ("10.39.64.50", 1433, "PIT/OCR"),
+        # ("10.39.64.50", 1433, "PIT/OCR"),
         ("10.70.6.64", 1521, "Processo.rio"),
         ("10.90.31.22", 1521, "SICOP"),
         ("10.2.221.127", 1433, "Divida ativa"),
