@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 from .late_runs import LateRunsTrigger  # noqa: F401
-from .vpn import VpnTrigger
+from .vpn import VpnTrigger  # noqa: F401
