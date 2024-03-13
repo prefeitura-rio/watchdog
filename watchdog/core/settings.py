@@ -26,5 +26,20 @@ class Settings:
     PREFECT_API_URL = getenv_notnull("PREFECT_API_URL")
     PREFECT_API_AUTH_TOKEN = getenv_notnull("PREFECT_API_AUTH_TOKEN")
 
+    # VPN settings
+    VPN_IPS_PORTS = [
+        ("10.39.64.50", 1433, "PIT/OCR"),
+        ("10.70.6.64", 1521, "Processo.rio"),
+        ("10.90.31.22", 1521, "SICOP"),
+        ("10.2.221.127", 1433, "Divida ativa"),
+        ("10.70.11.61", 1433, "SISCOR"),
+        ("10.70.1.34", 1433, "1746 Replica"),
+        ("10.70.6.103", 1433, "Gestao Escolar"),
+        ("10.70.6.21", 1526, "Ergon (PROD)"),
+        ("10.70.6.26", 1521, "Ergon COMLURB"),
+        ("10.2.221.101", 1433, "EGPWEB (PROD)"),
+        ("10.90.31.22", 1521, "SIGMA"),
+    ]
+
 
 settings = Settings()
